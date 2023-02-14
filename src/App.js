@@ -3,9 +3,27 @@ import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
+
+import pizzaArray from './pizzaArray';
 import './scss/app.scss';
 
 function App() {
+  const renderPizzaBlocks = () => {
+    return pizzaArray.map((item, index) => (
+      <PizzaBlock
+        img={item.imageUrl}
+        title={item.title}
+        price={item.price}
+        sizes={item.sizes}
+        types={item.types}
+        category={item.category}
+        rating={item.rating}
+        index={index}
+        key={index}
+      />
+    ));
+  };
+
   return (
     <div className="App">
       <div className="wrapper">
@@ -18,7 +36,8 @@ function App() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-              <PizzaBlock
+              {renderPizzaBlocks()}
+              {/* <PizzaBlock
                 title="Мексиканская"
                 price="699"
                 img="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
@@ -62,7 +81,7 @@ function App() {
                 title="Мясная"
                 price="789"
                 img="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-              />
+              /> */}
             </div>
           </div>
         </div>
