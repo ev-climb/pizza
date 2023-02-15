@@ -9,19 +9,7 @@ import './scss/app.scss';
 
 function App() {
   const renderPizzaBlocks = () => {
-    return pizzas.map((item, index) => (
-      <PizzaBlock
-        img={item.imageUrl}
-        title={item.title}
-        price={item.price}
-        sizes={item.sizes}
-        types={item.types}
-        category={item.category}
-        rating={item.rating}
-        index={index}
-        key={index}
-      />
-    ));
+    return pizzas.map((item, index) => <PizzaBlock {...item} key={index} />);
   };
 
   return (
