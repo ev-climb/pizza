@@ -1,8 +1,10 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
+import { Home } from './pages/Home';
+import { Cart } from './pages/Cart';
 import PizzaBlock from './components/PizzaBlock';
+import { NotFound } from './pages/NotFound';
 
 import axios from 'axios';
 import Skeleton from './components/PizzaBlock/Skeleton';
@@ -38,14 +40,11 @@ function App() {
       <div className="wrapper">
         <Header />
         <div className="content">
-          <div className="container">
-            <div className="content__top">
-              <Categories />
-              <Sort />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">{renderPizzaBlocks()}</div>
-          </div>
+          <Routes>
+            <Route path="/" element={<Home renderPizzaBlocks={renderPizzaBlocks} />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
       </div>
     </div>
