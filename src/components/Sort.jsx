@@ -24,7 +24,7 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => onCklickSort()}>популярности</span>
+        <span onClick={() => onCklickSort()}>{sorts[activeSort]}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
