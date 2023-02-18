@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Category({ onClickCategory, activeIndex, title, index }) {
+function Category({ onClickCategory, title, index, categoryId }) {
   return (
-    <li onClick={() => onClickCategory(index)} className={activeIndex === index ? 'active' : ''}>
+    <li onClick={() => onClickCategory(index)} className={categoryId === index ? 'active' : ''}>
       {title}
     </li>
   );

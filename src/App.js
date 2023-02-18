@@ -13,12 +13,22 @@ import './scss/app.scss';
 function App() {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [categoryId, setCategoryId] = React.useState(0);
+  const [sortType, setSortType] = React.useState({
+    name: 'популярности',
+    sort: 'rating',
+  });
   const api = 'https://63ef3f0ac59531ccf16b8250.mockapi.io/';
 
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const [pizzasRes] = await Promise.all([axios.get(`${api}pizzas`)]);
+        setIsLoading(true);
+        const [pizzasRes] = await Promise.all([
+          axios.get(
+            `${api}pizzas?${categoryId ? `category=${categoryId}` : ''}&sortBy=${sortType.sort}`,
+          ),
+        ]);
         setIsLoading(false);
         setPizzas(pizzasRes.data);
       } catch (err) {
@@ -27,7 +37,7 @@ function App() {
       }
     }
     fetchData();
-  }, []);
+  }, [categoryId, sortType]);
 
   const renderPizzaBlocks = () => {
     return isLoading
@@ -41,7 +51,18 @@ function App() {
         <Header />
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home renderPizzaBlocks={renderPizzaBlocks} />} />
+            <Route
+              path="/"
+              element={
+                <Home
+                  sortType={sortType}
+                  setSortType={(id) => setSortType(id)}
+                  renderPizzaBlocks={renderPizzaBlocks}
+                  categoryId={categoryId}
+                  setCategoryId={(id) => setCategoryId(id)}
+                />
+              }
+            />
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
