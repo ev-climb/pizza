@@ -14,12 +14,13 @@ function App() {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
+  const [searchValue, setSearchValue] = React.useState('');
   const [sortType, setSortType] = React.useState({
     name: 'популярности',
     sort: 'rating',
   });
   const api = 'https://63ef3f0ac59531ccf16b8250.mockapi.io/';
-
+  console.log(searchValue);
   React.useEffect(() => {
     async function fetchData() {
       try {
@@ -39,16 +40,22 @@ function App() {
     fetchData();
   }, [categoryId, sortType]);
 
+  const onChangeSearchInput = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   const renderPizzaBlocks = () => {
     return isLoading
       ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-      : pizzas.map((item, index) => <PizzaBlock {...item} isLoading={isLoading} key={index} />);
+      : pizzas
+          .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+          .map((item, index) => <PizzaBlock {...item} isLoading={isLoading} key={index} />);
   };
 
   return (
     <div className="App">
       <div className="wrapper">
-        <Header />
+        <Header setSearchValue={setSearchValue} onChangeSearchInput={onChangeSearchInput} />
         <div className="content">
           <Routes>
             <Route

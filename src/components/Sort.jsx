@@ -7,7 +7,6 @@ function Sort({ sortType, onClick }) {
     { name: 'цене', sort: 'price' },
     { name: 'алфавиту', sort: 'title' },
   ];
-  console.log(sortType);
 
   const onClickItemsSort = (i) => {
     onClick(i);
