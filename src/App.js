@@ -59,10 +59,10 @@ function App() {
   };
 
   return (
-    <AppContext.Provider value={{}}>
+    <AppContext.Provider value={{ setSearchValue, searchValue }}>
       <div className="App">
         <div className="wrapper">
-          <Header setSearchValue={setSearchValue} onChangeSearchInput={onChangeSearchInput} />
+          <Header onChangeSearchInput={onChangeSearchInput} />
           <div className="content">
             <Routes>
               <Route
