@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from './redux/slices/filterSlice.js';
 
 import Header from './components/Header';
 import { Home } from './pages/Home';
@@ -14,6 +16,9 @@ import './scss/app.scss';
 export const AppContext = React.createContext({});
 
 function App() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
@@ -62,6 +67,16 @@ function App() {
     <AppContext.Provider value={{ setSearchValue, searchValue }}>
       <div className="App">
         <div className="wrapper">
+          <div>
+            <button aria-label="Increment value" onClick={() => dispatch(increment())}>
+              Increment
+            </button>
+            <span>{count}</span>
+            <button aria-label="Decrement value" onClick={() => dispatch(decrement())}>
+              Decrement
+            </button>
+          </div>
+
           <Header onChangeSearchInput={onChangeSearchInput} />
           <div className="content">
             <Routes>
